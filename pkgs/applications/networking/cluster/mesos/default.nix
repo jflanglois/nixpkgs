@@ -25,7 +25,7 @@ let
   });
 
 in stdenv.mkDerivation rec {
-  version = "1.4.1";
+  version = "1.9.0";
   pname = "mesos";
 
   enableParallelBuilding = true;
@@ -33,14 +33,10 @@ in stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://apache/mesos/${version}/${pname}-${version}.tar.gz";
-    sha256 = "1c7l0rim9ija913gpppz2mcms08ywyqhlzbbspqsi7wwfdd7jwsr";
+    sha256 = "1fd6cimc0rwr0222bq17jsl2dmgdnmbpqhv9hg6yd7xc7pmcazks";
   };
 
   patches = [
-    # https://reviews.apache.org/r/36610/
-    # TODO: is this still needed?
-    ./rb36610.patch
-
     # see https://github.com/cstrahan/mesos/tree/nixos-${version}
     ./nixos.patch
   ];
@@ -258,6 +254,5 @@ in stdenv.mkDerivation rec {
     description = "A cluster manager that provides efficient resource isolation and sharing across distributed applications, or frameworks";
     maintainers = with maintainers; [ cstrahan offline ];
     platforms   = platforms.unix;
-    broken = true; # Broken since 2019-10-22 (https://hydra.nixos.org/build/115475123)
   };
 }
