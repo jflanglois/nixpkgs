@@ -17,6 +17,12 @@
     <itemizedlist>
       <listitem>
         <para>
+          <literal>iptables</literal> now uses
+          <literal>nf_tables</literal> backend.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           PHP now defaults to PHP 8.0, updated from 7.4.
         </para>
       </listitem>
@@ -408,6 +414,14 @@
           that before NixOS 21.11, specifying either setuid or setgid
           but not owner/group resulted in wrappers owned by
           nobody/nogroup, which is unsafe.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          Since <literal>iptables</literal> now uses
+          <literal>nf_tables</literal> backend and
+          <literal>ipset</literal> doesn’t support it, some applications
+          (ferm, shorewall, firehol) may have limited functionality.
         </para>
       </listitem>
       <listitem>
@@ -1499,6 +1513,23 @@ Superuser created successfully.
           module has a new
           <link xlink:href="options.html#opt-networking.wireless.iwd.settings">networking.wireless.iwd.settings</link>
           option.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The
+          <link xlink:href="options.html#opt-services.smokeping.host">services.smokeping.host</link>
+          option was added and defaulted to
+          <literal>localhost</literal>. Before,
+          <literal>smokeping</literal> listened to all interfaces by
+          default. NixOS defaults generally aim to provide
+          non-Internet-exposed defaults for databases and internal
+          monitoring tools, see e.g.
+          <link xlink:href="https://github.com/NixOS/nixpkgs/issues/100192">#100192</link>.
+          Further, the systemd service for <literal>smokeping</literal>
+          got reworked defaults for increased operational stability, see
+          <link xlink:href="https://github.com/NixOS/nixpkgs/pull/144127">PR
+          #144127</link> for details.
         </para>
       </listitem>
       <listitem>
